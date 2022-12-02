@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="creator" content="Patryk Klatka, Jakub Barber">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Metoda Eulera</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h3>Metoda Eulera</h3>
+
+            <select name="exampleEquations" id="exampleEquations">
+                <option value="default" id="default" data-function-equation="y" data-equation-solution="e^x"
+                    data-starting-point="(0,1)" data-range="[0,5]" data-n="10">Wybierz przykład</option>
+            </select>
+
+            <label for="functionEquation">Wzór funkcji f(x,y) w równaniu y' = f(x,y)</label>
+            <input type="text" name="functionEquation" id="functionEquation" value="y">
+
+            <label for="equationSolution">Rozwiązanie y(x) powyższego równania</label>
+            <input type="text" name="equationSolution" id="equationSolution" value="e^x">
+
+
+            <label for="startingPoint">Warunek początkowy y(x<sub>0</sub>) = y<sub>0</sub> w postaci punktu
+                (x<sub>0</sub> ,y<sub>0</sub>)</label>
+            <input type="text" name="startingPoint" id="startingPoint" value="(0,1)">
+
+            <label for="range">Odcinek [a = x<sub>0</sub>, b]</label>
+            <input type="text" name="range" id="range" value="[0,5]">
+
+            <label for="n">Liczba kroków N <br>przy wartości H = <span class="" id="h">0.5</span></label>
+            <input type="text" name="n" id="n" value="10">
+
+            <div class="button-wrapper">
+                <button class="" id="loadData">Odśwież wykres</button>
+                <button class="" id="decreaseN">Zmniejsz N</button>
+                <button class="" id="increaseN">Zwiększ N</button>
+            </div>
+
+        </section>
+        <aside>
+            <div class="chart">
+                <canvas id="myChart"></canvas>
+            </div>
+        </aside>
+    </main>
+
+    <script src="./js/libs/math.js"></script>
+    <script src="./js/libs/chart.js"></script>
+    <script src="./js/eulerMethod.js"></script>
+</body>
+
+</html>

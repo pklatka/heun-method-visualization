@@ -1,0 +1,20 @@
+{
+    "examples": [
+        {
+            "title": "Przykład 1",
+            "functionEquation": "y + x",
+            "equationSolution": "x^2",
+            "startingPoint": "(1,5)",
+            "range": "[2,8]",
+            "n": "5"
+        },
+        {
+            "title": "Przykład 2",
+            "functionEquation": "y*2 + x",
+            "equationSolution": "x^2",
+            "startingPoint": "(1,5)",
+            "range": "[2,8]",
+            "n": "5"
+        }
+    ]
+}
