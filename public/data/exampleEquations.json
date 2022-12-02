@@ -6,7 +6,8 @@
             "equationSolution": "x^2",
             "startingPoint": "(1,5)",
             "range": "[2,8]",
-            "n": "5"
+            "n": "5",
+            "epsilon": "15"
         },
         {
             "title": "Przykład 2",
@@ -14,7 +15,8 @@
             "equationSolution": "x^2",
             "startingPoint": "(1,5)",
             "range": "[2,8]",
-            "n": "5"
+            "n": "5",
+            "epsilon": "20"
         }
     ]
 }

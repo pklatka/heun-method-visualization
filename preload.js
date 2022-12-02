@@ -12,18 +12,17 @@ window.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch('./data/exampleEquations.json')
         const data = await response.json()
 
-        let i = 1
-        data.examples.forEach(e => {
+        data.examples.forEach((e, i) => {
             const optionChild = document.createElement('option')
             optionChild.value = `example${i}`
             optionChild.id = `example${i}`
-            i += 1
             optionChild.textContent = e.title
             optionChild.dataset.functionEquation = e.functionEquation
             optionChild.dataset.equationSolution = e.equationSolution
             optionChild.dataset.startingPoint = e.startingPoint
             optionChild.dataset.range = e.range
             optionChild.dataset.n = e.n
+            optionChild.dataset.epsilon = e.epsilon
             selectTag.appendChild(optionChild)
         })
     } catch (error) {

@@ -1,3 +1,4 @@
+let epsilon = 10
 let chart = null;
 
 // Draw chart using chart.js library
@@ -102,9 +103,26 @@ const getVariables = async () => {
 // Draw's chart
 const loadData = async () => {
     const { eq, sol, a, b, y0, n } = await getVariables()
-
     const { valuesOX, equationOY, solutionOY } = await calculateFunctionValues(eq, sol, a, b, y0, n)
+
+    // Check if all x values are smaller than epsilon, if true then don't update n value
+    let metric = 0
+    // for (let i = 0; i < solutionOY.length; i++) {
+    //     metric += Math.pow(equationOY[i] - solutionOY[i], 2)
+    // }
+    // metric = Math.sqrt(metric)
+
+    // Using ||max|| metric
+    for (let i = 0; i < solutionOY.length; i++) {
+        metric = Math.max(Math.abs(equationOY[i] - solutionOY[i]), metric)
+    }
+
+    if (metric < epsilon) {
+        return false;
+    }
+
     drawChart(valuesOX, equationOY, solutionOY)
+    return true;
 }
 
 // Get tags
@@ -115,6 +133,10 @@ const decreaseNButton = document.getElementById('decreaseN')
 const hDynamicValueSpan = document.getElementById('h')
 const nValueInput = document.getElementById('n')
 const selectTag = document.getElementById('exampleEquations')
+const epsilonValueTag = document.getElementById('epsilon')
+
+// Refresh epsilon value every change
+epsilonValueTag.addEventListener('change', e => epsilon = Number(e.target.value))
 
 // Refresh data
 loadDataButton.addEventListener('click', loadData)
@@ -127,7 +149,10 @@ increaseNButton.addEventListener('click', async e => {
     // Update H value
     nValueInput.dispatchEvent(new Event("input"))
 
-    await loadData()
+    const result = await loadData()
+    if (!result) {
+        currentN.value = Number(currentN.value) / 2
+    }
 })
 
 // Decrease n value
@@ -138,7 +163,10 @@ decreaseNButton.addEventListener('click', async e => {
     // Update H value
     nValueInput.dispatchEvent(new Event("input"))
 
-    await loadData()
+    const result = await loadData()
+    if (!result) {
+        currentN.value = Number(currentN.value) * 2
+    }
 })
 
 // Update H value
@@ -161,6 +189,7 @@ selectTag.addEventListener('change', e => {
     document.getElementById("startingPoint").value = option.dataset.startingPoint
     document.getElementById("range").value = option.dataset.range
     document.getElementById("n").value = option.dataset.n
+    epsilonValueTag.value = Number(option.dataset.epsilon)
 
     // Update H value
     nValueInput.dispatchEvent(new Event("input"))

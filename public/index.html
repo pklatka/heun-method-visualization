@@ -17,7 +17,8 @@
 
             <select name="exampleEquations" id="exampleEquations">
                 <option value="default" id="default" data-function-equation="y" data-equation-solution="e^x"
-                    data-starting-point="(0,1)" data-range="[0,5]" data-n="10">Wybierz przykład</option>
+                    data-starting-point="(0,1)" data-range="[0,5]" data-n="10" data-epsilon="10">Wybierz przykład
+                </option>
             </select>
 
             <label for="functionEquation">Wzór funkcji f(x,y) w równaniu y' = f(x,y)</label>
@@ -35,7 +36,10 @@
             <input type="text" name="range" id="range" value="[0,5]">
 
             <label for="n">Liczba kroków N <br>przy wartości H = <span class="" id="h">0.5</span></label>
-            <input type="text" name="n" id="n" value="10">
+            <input type="number" name="n" id="n" value="10">
+
+            <label for="epsilon">&epsilon; dla warunku stopu</label>
+            <input type="number" name="epsilon" id="epsilon" value="10">
 
             <div class="button-wrapper">
                 <button class="" id="loadData">Odśwież wykres</button>
