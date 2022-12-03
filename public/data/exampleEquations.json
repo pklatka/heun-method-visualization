@@ -7,7 +7,7 @@
             "startingPoint": "(1,5)",
             "range": "[2,8]",
             "n": "5",
-            "epsilon": "15"
+            "epsilon": "0.01"
         },
         {
             "title": "Przykład 2",
@@ -16,7 +16,7 @@
             "startingPoint": "(1,5)",
             "range": "[2,8]",
             "n": "5",
-            "epsilon": "20"
+            "epsilon": "0.1"
         }
     ]
 }

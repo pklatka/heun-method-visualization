@@ -1,4 +1,4 @@
-let epsilon = 10
+let epsilon = 0.1
 let chart = null;
 
 // Draw chart using chart.js library
@@ -10,7 +10,7 @@ const drawChart = async (valuesOX, equationOY, solutionOY) => {
     chart = new Chart(ctx, {
         type: "line",
         data: {
-            labels: valuesOX,
+            labels: valuesOX.map(e => +Number(e).toFixed(2)),
             datasets: [{
                 fill: false,
                 pointRadius: 1,
@@ -63,7 +63,7 @@ const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
         let xi = Number(eulerOX.at(-1))
         let yi = Number(eulerOY.at(-1))
 
-        eulerOX.push((xi + h).toFixed(2))
+        eulerOX.push(xi + h)
         eulerOY.push(yi + (h * equation.evaluate({ x: xi, y: yi })))
 
         // // Calculate values using exact solution
@@ -118,6 +118,7 @@ const loadData = async () => {
     }
 
     if (metric < epsilon) {
+        alert("Osiągnięto przybliżenie zgodnie z zadanym epsilonem.")
         return false;
     }
 
