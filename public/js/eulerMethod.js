@@ -119,12 +119,8 @@ const loadData = async () => {
 
     // Check if all x values are smaller than epsilon, if true then don't update n value
     let metric = 0
-    // for (let i = 0; i < solutionOY.length; i++) {
-    //     metric += Math.pow(equationOY[i] - solutionOY[i], 2)
-    // }
-    // metric = Math.sqrt(metric)
 
-    // Using ||max|| metric
+    // Using maximum metric
     for (let i = 0; i < solutionOY.length; i++) {
         metric = Math.max(Math.abs(equationOY[i] - solutionOY[i]), metric)
     }
