@@ -10,7 +10,7 @@ const drawChart = async (valuesOX, equationOY, solutionOY) => {
     chart = new Chart(ctx, {
         type: "line",
         data: {
-            labels: valuesOX.map(e => +Number(e).toFixed(2)),
+            labels: valuesOX,
             datasets: [{
                 fill: false,
                 pointRadius: 1,
@@ -23,29 +23,37 @@ const drawChart = async (valuesOX, equationOY, solutionOY) => {
                 borderColor: "rgba(0,0,255,0.5)",
                 data: equationOY,
                 label: "Wykres rozwiązania w wyniku działania metody Eulera dla równania y' = f(x,y)"
-            },
-            ]
+            },]
         },
         options: {
-            animation: {
-                duration: 0
+            pan: {
+                enabled: true,
+                mode: 'xy',
+            },
+            zoom: {
+                enabled: true,
+                mode: 'xy',
+            },
+            responsive: true,
+            animation: false,
+            tooltips: {
+                mode: 'x'
             },
             scales: {
-                y: {
-                    title: {
+                yAxes: [{
+                    scaleLabel: {
                         display: true,
-                        text: 'y(x)'
+                        labelString: 'y(x)'
                     }
-                },
-                x: {
-                    title: {
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        type: 'linear',
                         display: true,
-                        text: 'x'
+                        labelString: 'x'
                     }
-                },
+                }],
             }
-
-
         }
     });
 }
@@ -55,6 +63,7 @@ const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
     let h = (b - a) / n
 
     let eulerOX = [a]
+    let labelOX = [Number(Number(a).toFixed(2))]
     let eulerOY = [y0]
     let fnOY = [y0]
 
@@ -69,9 +78,12 @@ const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
         // // Calculate values using exact solution
         yi = fnOY.at(-1)
         fnOY.push(solution.evaluate({ x: xi + h }))
+
+        // Add label
+        labelOX.push(Number(Number(xi + h).toFixed(2)))
     }
 
-    return { valuesOX: eulerOX, equationOY: eulerOY, solutionOY: fnOY }
+    return { valuesOX: labelOX, equationOY: eulerOY, solutionOY: fnOY }
 }
 
 // Get variables from input tags, also parse equation using math.js library
@@ -118,11 +130,11 @@ const loadData = async () => {
     }
 
     if (metric < epsilon) {
-        alert("Osiągnięto przybliżenie zgodnie z zadanym epsilonem.")
+        alertTrigger.dispatchEvent(new Event('click'))
         return false;
     }
 
-    drawChart(valuesOX, equationOY, solutionOY)
+    await drawChart(valuesOX, equationOY, solutionOY)
     return true;
 }
 
@@ -135,6 +147,7 @@ const hDynamicValueSpan = document.getElementById('h')
 const nValueInput = document.getElementById('n')
 const selectTag = document.getElementById('exampleEquations')
 const epsilonValueTag = document.getElementById('epsilon')
+const alertTrigger = document.querySelector('input[name="alertEpsilon"]')
 
 // Refresh epsilon value every change
 epsilonValueTag.addEventListener('change', e => epsilon = Number(e.target.value))
@@ -171,7 +184,7 @@ decreaseNButton.addEventListener('click', async e => {
 })
 
 // Update H value
-nValueInput.addEventListener('input', e => {
+nValueInput.addEventListener('input', async e => {
     let range = document.getElementById("range").value
     range = range.slice(1, range.length - 1).split(",")
     const a = Number(range[0])
@@ -181,7 +194,7 @@ nValueInput.addEventListener('input', e => {
 })
 
 // Autofill example values
-selectTag.addEventListener('change', e => {
+selectTag.addEventListener('change', async e => {
     const option = document.getElementById(e.target.value)
 
     // Load option values

@@ -1,5 +1,5 @@
 {
-  "name": "Metoda Eulera",
+  "name": "metoda-eulera",
   "version": "1.0.0",
   "description": "Program pozwalający obliczać rozwiązania równań różniczkowych postaci y' = f(x,y) z warunkiem początkowym za pomocą metody Eulera.",
   "main": "main.js",

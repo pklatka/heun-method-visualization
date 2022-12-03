@@ -52,3 +52,7 @@ aside {
     justify-content: center;
     align-items: center;
 }
+
+p:first-of-type {
+    margin-top: 15px;
+}

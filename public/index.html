@@ -14,7 +14,6 @@
     <main>
         <section>
             <h3>Metoda Eulera</h3>
-
             <select name="exampleEquations" id="exampleEquations">
                 <option value="default" id="default" data-function-equation="y" data-equation-solution="e^x"
                     data-starting-point="(0,1)" data-range="[0,5]" data-n="10" data-epsilon="0.1">Wybierz przykład
@@ -38,7 +37,7 @@
             <label for="n">Liczba kroków N <br>przy wartości H = <span class="" id="h">0.5</span></label>
             <input type="number" name="n" id="n" value="10">
 
-            <label for="epsilon">&epsilon; dla warunku stopu</label>
+            <label for="epsilon">&epsilon; dla zakończenia obliczeń</label>
             <input type="number" name="epsilon" id="epsilon" value="0.1">
 
             <div class="button-wrapper">
@@ -46,6 +45,8 @@
                 <button class="" id="decreaseN">Zmniejsz N</button>
                 <button class="" id="increaseN">Zwiększ N</button>
             </div>
+
+            <input type="hidden" name="alertEpsilon">
 
         </section>
         <aside>
@@ -56,7 +57,11 @@
     </main>
 
     <script src="./js/libs/math.js"></script>
-    <script src="./js/libs/chart.js"></script>
+    <!-- <script src="./js/libs/chart.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.6/chartjs-plugin-zoom.js"></script>
+
     <script src="./js/eulerMethod.js"></script>
 </body>
 

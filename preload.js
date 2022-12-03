@@ -6,6 +6,8 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 
+const { ipcRenderer } = require('electron')
+
 window.addEventListener('DOMContentLoaded', async () => {
     try {
         const selectTag = document.getElementById('exampleEquations')
@@ -24,6 +26,11 @@ window.addEventListener('DOMContentLoaded', async () => {
             optionChild.dataset.n = e.n
             optionChild.dataset.epsilon = e.epsilon
             selectTag.appendChild(optionChild)
+        })
+
+        const alertTrigger = document.querySelector('input[name="alertEpsilon"]')
+        alertTrigger.addEventListener('click', () => {
+            ipcRenderer.invoke('show-error-box', 'Uwaga', 'Osiągnięto przybliżenie zgodne z zadanym epsilonem.')
         })
     } catch (error) {
         console.error(error)
