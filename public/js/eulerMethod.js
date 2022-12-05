@@ -112,7 +112,7 @@ const getVariables = async () => {
     return { eq, sol, a, b, y0, n }
 }
 
-// Draw's chart
+// Draw chart
 const loadData = async () => {
     const { eq, sol, a, b, y0, n } = await getVariables()
     const { valuesOX, equationOY, solutionOY } = await calculateFunctionValues(eq, sol, a, b, y0, n)
