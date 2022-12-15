@@ -6,13 +6,13 @@ function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 690,
+    height: 800,
     autoHideMenuBar: true,
     // icon: path.join(__dirname, './public/img/icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
-    title: 'Metoda Eulera',
+    title: 'Metoda Heuna',
   })
 
   // and load the index.html of the app.

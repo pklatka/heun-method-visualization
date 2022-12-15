@@ -16,13 +16,15 @@ const drawChart = async (valuesOX, equationOY, solutionOY) => {
                 pointRadius: 1,
                 borderColor: "rgba(255,0,0,0.5)",
                 data: solutionOY,
-                label: "Wykres rozwiązania równania y' = f(x,y)"
+                label: "Rozwiązanie równania y' = f(x,y)",
+                lineTension: 0
             }, {
                 fill: false,
                 pointRadius: 1,
                 borderColor: "rgba(0,0,255,0.5)",
                 data: equationOY,
-                label: "Wykres rozwiązania w wyniku działania metody Eulera dla równania y' = f(x,y)"
+                label: "Rozwiązanie w wyniku działania metody numerycznej dla równania y' = f(x,y)",
+                lineTension: 0
             },]
         },
         options: {
@@ -59,7 +61,7 @@ const drawChart = async (valuesOX, equationOY, solutionOY) => {
 }
 
 // Use Euler's method
-const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
+const calculateFunctionValuesUsingEulersMethod = async (equation, solution, a, b, y0, n) => {
     let h = (b - a) / n
 
     let eulerOX = [a]
@@ -75,7 +77,7 @@ const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
         eulerOX.push(xi + h)
         eulerOY.push(yi + (h * equation.evaluate({ x: xi, y: yi })))
 
-        // // Calculate values using exact solution
+        // Calculate values using exact solution
         yi = fnOY.at(-1)
         fnOY.push(solution.evaluate({ x: xi + h }))
 
@@ -84,6 +86,37 @@ const calculateFunctionValues = async (equation, solution, a, b, y0, n) => {
     }
 
     return { valuesOX: labelOX, equationOY: eulerOY, solutionOY: fnOY }
+}
+
+// Use Heun's method
+const calculateFunctionValuesUsingHeunsMethod = async (equation, solution, a, b, y0, n) => {
+    let h = (b - a) / n
+
+    let heunOX = [a]
+    let labelOX = [Number(Number(a).toFixed(2))]
+    let heunOY = [y0]
+    let fnOY = [y0]
+
+    for (let i = 0; i < n; i++) {
+        // Calculate using Heun's method
+        let xi = Number(heunOX.at(-1))
+        let yi = Number(heunOY.at(-1))
+
+        heunOX.push(xi + h)
+
+        let slopeLeft = equation.evaluate({ x: xi, y: yi })
+        let slopeRight = equation.evaluate({ x: xi + h, y: yi + (h * slopeLeft) })
+        heunOY.push(yi + (h / 2) * (slopeLeft + slopeRight))
+
+        // Calculate values using exact solution
+        yi = fnOY.at(-1)
+        fnOY.push(solution.evaluate({ x: xi + h }))
+
+        // Add label
+        labelOX.push(Number(Number(xi + h).toFixed(2)))
+    }
+
+    return { valuesOX: labelOX, equationOY: heunOY, solutionOY: fnOY }
 }
 
 // Get variables from input tags, also parse equation using math.js library
@@ -115,7 +148,8 @@ const getVariables = async () => {
 // Draw chart
 const loadData = async () => {
     const { eq, sol, a, b, y0, n } = await getVariables()
-    const { valuesOX, equationOY, solutionOY } = await calculateFunctionValues(eq, sol, a, b, y0, n)
+    // const { valuesOX, equationOY, solutionOY } = await calculateFunctionValuesUsingEulersMethod(eq, sol, a, b, y0, n)
+    const { valuesOX, equationOY, solutionOY } = await calculateFunctionValuesUsingHeunsMethod(eq, sol, a, b, y0, n)
 
     // Check if all x values are smaller than epsilon, if true then don't update n value
     let metric = 0
