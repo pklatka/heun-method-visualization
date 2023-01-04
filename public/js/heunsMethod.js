@@ -1,5 +1,8 @@
+import examples from '../data/exampleEquations.json' assert {type : 'json'};
+
 let epsilon = 0.1
 let chart = null;
+let examplesArr;
 
 // Draw chart using chart.js library
 const drawChart = async (valuesOX, equationOY, solutionOY) => {
@@ -138,10 +141,13 @@ const getVariables = async () => {
 
 
     const node = math.parse(equation)
+    // console.log(node);
     const eq = node.compile()
+    // console.log(eq);
     const node2 = math.parse(solution)
+    // console.log(node2);
     const sol = node2.compile()
-
+    // console.log(sol);
     return { eq, sol, a, b, y0, n }
 }
 
@@ -158,6 +164,8 @@ const loadData = async () => {
     for (let i = 0; i < solutionOY.length; i++) {
         metric = Math.max(Math.abs(equationOY[i] - solutionOY[i]), metric)
     }
+    
+    epsilon = epsilonValueTag.value;
 
     if (metric < epsilon) {
         alertTrigger.dispatchEvent(new Event('click'))
@@ -167,6 +175,20 @@ const loadData = async () => {
     await drawChart(valuesOX, equationOY, solutionOY)
     return true;
 }
+
+const loadSelectOptions = function(){
+    examplesArr = examples.examples;
+    let innerHtml=''; 
+    let i=0;
+    for (let example of examplesArr){
+        innerHtml += `<option value="${i}" id="${i}" data-function-equation="${example.functionEquation}" data-equation-solution="${example.equationSolution}"
+        data-starting-point="${example.startingPoint}" data-range="${example.range}" data-n="${example.n}" data-epsilon="${example.epsilon}">${example.title}</option>`;
+        i++;
+    }
+    // selectTag.innerHTML=innerHtml
+    selectTag.insertAdjacentHTML('beforeend', innerHtml);
+}
+
 
 // Get tags
 const ctx = document.getElementById('myChart');
@@ -235,6 +257,8 @@ selectTag.addEventListener('change', async e => {
     document.getElementById("n").value = option.dataset.n
     epsilonValueTag.value = Number(option.dataset.epsilon)
 
+    // epsilon = epsilonValueTag.value
+
     // Update H value
     nValueInput.dispatchEvent(new Event("input"))
 
@@ -242,5 +266,9 @@ selectTag.addEventListener('change', async e => {
     loadData()
 })
 
+
+
+
 // Load default data
+loadSelectOptions();
 loadData()
