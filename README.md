@@ -1,10 +1,11 @@
-# Metoda Heuna
+# Heun's method
 
-Program pozwala na numeryczne obliczanie rozwiązania równania różniczkowego rzędu pierwszego postaci y' = f(x,y) z warunkiem początkowym. Dodatkowo generowana jest ilustracja danego przybliżenia.
+The application calculates solution of a differential equation of order one of the form y' = f(x,y) with an initial condition using Heun's method. In addition, an illustration of the given approximation is generated.
 
-Autorzy: Patryk Klatka, Jakub Barber
+Authors: Patryk Klatka, Jakub Barber
 
-Dodatkowe informacje:
-- Czasami w etykietach punktów występuje więcej wartości niż dwie (zawsze wielokrotność liczby 2). Jest to spowodowane błędami związanymi z precyzją obliczeń. Należy wtedy wyniki interpretować w kolejności od góry do dołu tzn. jak wynik oznaczony kwadratem czerwony jest trzeci od góry, to wynik z niebieskim kwadratem, trzeci od góry, jest jego odpowiednikiem.
-- Wykres można przybliżać wykorzystując zoom myszki.
-- Wykorzystywana jest metryka Czebyszewa do sprawdzania, czy wykres policzony metodą Eulera jest zbliżony do wykresu rozwiązania równania
+Additional information:
+- Sometimes there are more than two values in the point labels (always multiples of 2). This is due to errors related to the precision of the calculations. The results should then be interpreted in order from top to bottom, i.e. as the score labelled with a red square is the third from the top, the score with a blue square, third from the top, is its equivalent.
+- The graph can be zoomed in using mouse zoom.
+
+This project was an obligatory task on Differential and Difference Equations course at AGH UST.
