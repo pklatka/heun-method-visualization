@@ -1,6 +1,6 @@
 # Heun's method
 
-The application calculates solution of a differential equation of order one of the form y' = f(x,y) with an initial condition using Heun's method. In addition, an illustration of the given approximation is generated.
+The application calculates solution of a differential equation y' = f(x,y) with an initial condition using Heun's method. In addition, an illustration of the given approximation is generated.
 
 Authors: Patryk Klatka, Jakub Barber
 
